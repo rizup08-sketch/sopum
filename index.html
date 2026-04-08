@@ -242,6 +242,219 @@
       purple: { bg: 'bg-purple-50', text: 'text-purple-500', hover: 'hover:border-purple-500' }
     };
 
+    // -------------------------------------------------------------------------
+    // ★ 초기 데이터 일괄 등록을 위한 원본 데이터 
+    // -------------------------------------------------------------------------
+    const bulkRawData = `파랑색 1|유선전화기|1
+파랑색 1|파일철(집개형)|5
+파랑색 1|파일철(덮개형)|2
+파랑색 1|결재 파일|1
+파랑색 1|편지지|1
+파랑색 1|아이패드 케이스|2
+파랑색 1|사원증|8
+파랑색 1|스프링 노트|4
+파랑색 1|그냥 노트|4
+파랑색 1|레이저 포인터|1
+파랑색 1|카페번호호출기|1
+파랑색 2|투명 응모함+캡슐|1
+파랑색 2|정육면체 응모함|1
+파랑색 2|사각응모함 검정색+캡슐|1
+파랑색 2|파이프 담배+라이터|1
+파랑색 2|뽑기 캡슐|1
+파랑색 2|병뚜껑 게임|1
+파랑색 2|꼬마 도미노|1
+파랑색 3|무지개 가발|1
+파랑색 3|썬글라스 모음|1
+파랑색 3|손가락 짝대기|2
+파랑색 3|속가락 막대기 늘어나는거|2
+파랑색 3|OX 팻말 빨/파|10
+파랑색 3|OX 팻말 살구/하늘|2
+파랑색 3|돌돌이 안경|1
+파랑색 3|양초|1
+파랑색 3|지드래곤 수제 네일|1
+파랑색 3|화려한 남자 반지|1
+파랑색 3|까만색 버건디 보타이|1
+파랑색 3|뿅망치|2
+파랑색 3|응원도구(제기느낌)|1
+파랑색 3|거짓말 탐지기|1
+파랑색 3|변장용 콧수염|1
+파랑색 3|바가지 머리가발|1
+파랑색 4|고양이 명함 꽂이|1
+파랑색 4|나무 명함 꽂이|1
+파랑색 4|아크릴 명함 꽂이|1
+파랑색 4|파랑색 머그컵|5
+파랑색 4|미니 문어 인형(빨/분홍)|1
+파랑색 4|미니화이트 보드|4
+파랑색 4|보드마카 지우개|1
+빨간색 5|모나리자 액자 A4|1
+빨간색 5|모나리자 액자 A5|1
+빨간색 5|피에타 조각상|1
+빨간색 5|다비드 석고상|1
+빨간색 5|아빠다리 생각하는 석상 (가슴뚤림)|1
+빨간색 5|나무액자|1
+빨간색 5|승리의 여신상|1
+빨간색 5|목각인형|3
+빨간색 5|해골|1
+빨간색 5|높은음자리표|1
+빨간색 5|나무손 모형|1
+빨간색 6|돈키호테|1
+빨간색 6|목마 / 유리말|1
+빨간색 6|16분 음표|1
+빨간색 6|동그란 구 위에서 고민하는 조각상 (고독)|1
+빨간색 6|빈티지 가죽 커버 고서|1
+빨간색 6|크립텍스 비밀번호 보관함|1
+빨간색 6|문방사우|1
+빨간색 6|미니어처 나무의자|1
+빨간색 6|흉상 화병(머리깨짐)|1
+빨간색 6|흘러내리는 시계|1
+빨간색 6|벽돌 텍스쳐 생각하는 사람|1
+빨간색 6|한국 수제 현관문 종|1
+빨간색 6|현관문 종|1
+빨간색 7|엔틱 영어책|5
+빨간색 7|촛대|2
+빨간색 7|빈티지 미니 지구본|1
+빨간색 7|유리수정구|1
+빨간색 7|다도 세트|1
+빨간색 7|고급 문방사우 / 먹 포함|1
+빨간색 7|동양느낌 공책|1
+빨간색 7|빈티지 펜대 / 펜촉|1
+빨간색 7|양팔 저울|1
+빨간색 7|물음표 / 전구 램프|1
+빨간색 7|회중시계|1
+빨간색 8|뮤지션 피큐어|3
+빨간색 8|무한동력 발전기|1
+빨간색 8|나무체스 / 메탈체스|1
+빨간색 8|뉴턴 진자운동|1
+빨간색 8|오방신기|1
+빨간색 8|나무퍼즐|1
+빨간색 8|붉은 실 뭉치|1
+보라색 9|팩맨 오락기|1
+보라색 9|우채통|1
+보라색 9|금화 뭉치|1
+보라색 9|쇼핑카트|1
+보라색 9|주판|1
+보라색 9|홀딩 카메라|1
+보라색 9|자동차 미니어처|1
+보라색 9|화실 세트|1
+보라색 9|팽이(인셉션)|1
+보라색 9|장애인 피규어 모음|1
+보라색 9|나침반|1
+보라색 9|미니 나무 사람 인형 (군중 / 빨간색 리더)|1
+보라색 9|태엽 로보트|1
+보라색 10|알라딘 램프|2
+보라색 10|액션 피큐어|3
+보라색 10|미니어처 TV|1
+보라색 10|액션피규어 손 모형|1
+보라색 10|영자신문|1
+보라색 10|퍼즐|1
+보라색 10|나무 십자가 스탠드|1
+보라색 10|공자 피규어|1
+보라색 10|아기천사 석고상|2
+보라색 10|오리엔탈 원형 향로|1
+보라색 10|호롱불|1
+보라색 10|중세시대 배 미니어처 중/소|1
+보라색 10|금색 돋보기|1
+보라색 10|겨울느낌 무드등 (빨간집)|1
+보라색 10|할리갈리 종|1
+보라색 10|감옥 피규어|1
+보라색 10|바이킹 잔|1
+보라색 10|못난이 인형|3
+보라색 11|실로폰|1
+보라색 11|로댕 생각하는 사람|1
+보라색 11|사슴뿔|1
+보라색 11|알콜램프 호롱불|1
+보라색 11|커피잔 모양 티슈 꽂이|1
+보라색 11|정육면체 나무|1
+보라색 11|얼기설기 나무하트 상처받은 마음|1
+보라색 12|나무문|1
+보라색 12|판사봉|1
+보라색 12|병원놀이 세트|1
+보라색 12|스피드 구급함|1
+보라색 12|달고나 제작 세트|1
+주황색 13|실험용 가운|1
+주황색 13|과학 비커 / 용품|1
+주황색 13|장애인 지팡이|1
+주황색 13|움직이는 고양이 귀|1
+주황색 13|천사 날개|1
+주황색 14|가족 모형 조각상|1
+주황색 14|컬러 도미노|1
+주황색 14|우승 트로피|1
+주황색 14|벽시계|1
+주황색 14|분무기|2
+주황색 14|재우가 만든 바람개비|1
+주황색 14|청진기|1
+주황색 15|방진 마스크|1
+주황색 15|3M 안전 고글|1
+주황색 15|방독면|1
+주황색 15|보안면|1
+주황색 15|방독면 보형|1
+주황색 15|추락방지 산업용 안전밸트|1
+주황색 15|접금금지 테이프|1
+주황색 15|위험 테이프|1
+주황색 15|경광봉|1
+주황색 15|확성기|2
+주황색 16|산업 안전 헬멧 흰색|2
+주황색 16|산업 안전 헬멧 노랑색|3
+주황색 16|빨간 우산|1
+주황색 16|산업용 청력보호 귀마개|1
+주황색 16|3M 귀마개|1
+초록색 17|유해성 경고 문구판|1
+초록색 17|로토 잠금장치|1
+초록색 17|거짓말 탐지기 유적모형|1
+초록색 17|축구접시콘|1
+초록색 17|세계지도|1
+초록색 17|향초|1
+초록색 17|다용도 바늘|1
+초록색 17|조화|1
+초록색 17|접이식 즉석 카메라|1
+초록색 17|커피 그라인더 미니어처|1
+초록색 18|다트판|1
+초록색 18|큰 지구본|1
+초록색 18|고급 다트|1`;
+
+    window.seedBulkData = async (event) => {
+      const btn = event.currentTarget;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> 등록 진행 중...`;
+      btn.disabled = true;
+      lucide.createIcons({ root: btn });
+
+      const lines = bulkRawData.split('\n').filter(l => l.trim() !== '');
+      try {
+        const batch = writeBatch(db);
+        let idCounter = Date.now();
+        
+        lines.forEach((line) => {
+          const parts = line.split('|');
+          const loc = parts[0].trim();
+          const name = parts[1].trim();
+          const qty = parseInt(parts[2].trim()) || 1;
+          
+          let color = 'slate';
+          if(loc.includes('파랑')) color = 'indigo';
+          else if(loc.includes('빨간') || loc.includes('빨강')) color = 'red';
+          else if(loc.includes('보라')) color = 'purple';
+          else if(loc.includes('주황')) color = 'amber';
+          else if(loc.includes('초록')) color = 'emerald';
+
+          const id = 'p_' + (idCounter++);
+          const newProp = { 
+            id, category: '일반', name, imageUrl: '', qty, 
+            location: loc, locationColor: color, outDate: '', 
+            user: '', note: '', isReturned: false 
+          };
+          batch.set(doc(db, 'artifacts', appId, 'public', 'data', 'props', id), newProp);
+        });
+
+        await batch.commit();
+        window.showToast('데이터 일괄 등록이 성공적으로 완료되었습니다.');
+      } catch (e) {
+        console.error(e);
+        window.showToast('등록 중 오류가 발생했습니다.', 'error');
+        btn.innerText = '초기 데이터 일괄 등록하기';
+        btn.disabled = false;
+      }
+    };
+
     // UI Helper Functions
     window.showToast = (msg, type = 'success') => {
       const toast = document.createElement('div');
@@ -393,6 +606,13 @@
     window.handleImageUpload = async (event) => {
       const file = event.target.files[0];
       if (!file) return;
+
+      // 이미지 파일인지 확인 (동영상, 문서 차단)
+      if (!file.type.startsWith('image/')) {
+        window.showToast('이미지 파일(JPG, PNG 등)만 업로드할 수 있습니다.', 'error');
+        event.target.value = '';
+        return;
+      }
 
       const uploadText = document.getElementById('upload-status-text');
       const saveBtn = document.getElementById('btn-save-text');
@@ -592,7 +812,7 @@
         });
 
         if(!keys.length) { 
-          container.innerHTML = `<div class="py-20 flex flex-col items-center justify-center text-center"><i data-lucide="package-open" class="w-12 h-12 text-slate-200 mb-4"></i><p class="text-slate-400 font-bold">소품이 비어있습니다.</p></div>`; 
+          container.innerHTML = `<div class="py-20 flex flex-col items-center justify-center text-center"><i data-lucide="package-open" class="w-12 h-12 text-slate-200 mb-4"></i><p class="text-slate-400 font-bold mb-6">소품이 비어있습니다.</p><button onclick="seedBulkData(event)" class="bg-indigo-600 text-white px-6 py-3.5 rounded-2xl font-extrabold flex items-center justify-center gap-2 hover:bg-indigo-700 shadow-xl shadow-indigo-100 transition-all active:scale-95"><i data-lucide="database" class="w-5 h-5"></i> 초기 데이터 일괄 등록하기</button></div>`; 
           lucide.createIcons(); return; 
         }
         
