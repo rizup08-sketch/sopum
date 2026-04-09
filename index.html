@@ -60,7 +60,7 @@
     <div id="tab-master" class="space-y-6">
       <div class="relative">
         <i data-lucide="search" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-        <input type="text" id="search-input" placeholder="어떤 소품을 찾으시나요?" oninput="handleSearch()"
+        <input type="text" id="search-input" placeholder="소품명, 태그, 사용자 검색..." oninput="handleSearch()"
                class="w-full pl-12 pr-4 py-4 bg-white rounded-2xl border border-slate-100 shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-sm font-medium">
       </div>
       
@@ -146,6 +146,10 @@
               <div>
                 <label class="text-[10px] font-extrabold text-slate-400 block mb-1">보관 위치 (자동 색상 분류)</label>
                 <input type="text" id="form-location" placeholder="창고/선반 (예: 파랑색 1)" class="w-full border-b-2 border-slate-100 py-2 focus:border-indigo-500 outline-none text-sm font-bold text-slate-900 bg-transparent transition-all">
+              </div>
+              <div>
+                <label class="text-[10px] font-extrabold text-slate-400 block mb-1">검색용 태그 (쉼표로 구분)</label>
+                <input type="text" id="form-tags" placeholder="예: 앤틱, 피규어, 사무용품" class="w-full border-b-2 border-slate-100 py-2 focus:border-indigo-500 outline-none text-sm font-bold text-slate-900 bg-transparent transition-all">
               </div>
             </div>
           </div>
@@ -363,6 +367,7 @@
         document.getElementById('form-category').value = p.category || '일반';
         document.getElementById('form-qty').value = p.qty || 1;
         document.getElementById('form-location').value = p.location || '';
+        document.getElementById('form-tags').value = p.tags || '';
         
         const isOut = p.outDate && !p.isReturned;
         
@@ -403,6 +408,7 @@
         document.getElementById('form-category').value = '일반';
         document.getElementById('form-qty').value = '1';
         document.getElementById('form-location').value = selectedLocation || '';
+        document.getElementById('form-tags').value = '';
 
         outTitle.innerHTML = `<i data-lucide="external-link" class="w-4 h-4 text-emerald-500"></i> 새 반출 등록하기`;
         document.getElementById('form-outdate').value = '';
@@ -567,6 +573,7 @@
       if(!name) { window.showToast('소품명은 필수입니다.', 'error'); return; }
 
       const locName = document.getElementById('form-location').value.trim() || '미지정';
+      const tags = document.getElementById('form-tags').value.trim();
       
       let outDate = document.getElementById('form-outdate').value.trim();
       let user = document.getElementById('form-user').value.trim();
@@ -598,6 +605,7 @@
         name: name,
         qty: parseInt(document.getElementById('form-qty').value) || 1,
         location: locName,
+        tags: tags,
         imageUrl: document.getElementById('form-image-url').value.trim(),
         outDate: outDate,
         user: user,
@@ -679,7 +687,12 @@
       const container = document.getElementById('props-container');
       
       if (searchTerm) {
-        const filtered = propsData.filter(x => x.name.toLowerCase().includes(searchTerm) || x.category.toLowerCase().includes(searchTerm) || x.user.toLowerCase().includes(searchTerm));
+        const filtered = propsData.filter(x => 
+          x.name.toLowerCase().includes(searchTerm) || 
+          x.category.toLowerCase().includes(searchTerm) || 
+          x.user.toLowerCase().includes(searchTerm) ||
+          (x.tags && x.tags.toLowerCase().includes(searchTerm))
+        );
         if(!filtered.length) { container.innerHTML = `<div class="py-20 text-slate-300 font-bold text-center">검색 결과가 없습니다.</div>`; return; }
         container.innerHTML = `<h2 class="text-slate-400 font-extrabold text-[11px] mb-4 uppercase tracking-widest">Search Results (${filtered.length})</h2><div class="grid grid-cols-2 gap-4 animate-fade-in">${filtered.map(p => genPropCard(p)).join('')}</div>`;
         lucide.createIcons(); return;
@@ -743,6 +756,15 @@
 
     function genPropCard(p) {
       const isOut = p.outDate && !p.isReturned;
+      
+      let tagsHtml = '';
+      if (p.tags) {
+        const tagArray = p.tags.split(',').map(t => t.trim()).filter(t => t);
+        if (tagArray.length > 0) {
+          tagsHtml = `<div class="flex flex-wrap gap-1 mt-1.5">${tagArray.slice(0,3).map(t => `<span class="text-[9px] font-bold bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded-md">#${t}</span>`).join('')}${tagArray.length > 3 ? `<span class="text-[9px] font-bold text-slate-400 px-1 py-0.5">...</span>` : ''}</div>`;
+        }
+      }
+
       return `
         <div onclick="openPropModal('${p.id}')" class="flex flex-col gap-2 cursor-pointer group">
           <div class="relative w-full aspect-square rounded-[24px] overflow-hidden bg-slate-50 border border-slate-100 shadow-sm group-hover:shadow-md transition-all">
@@ -755,6 +777,7 @@
             <div class="text-[9px] font-extrabold text-indigo-500 mb-0.5 uppercase tracking-tighter">${p.location}</div>
             <h3 class="text-sm font-extrabold text-slate-900 truncate leading-snug">${p.name}</h3>
             <p class="text-[11px] font-bold text-slate-400 mt-0.5">수량 ${p.qty}${isOut&&p.user?` · ${p.user}`:''}</p>
+            ${tagsHtml}
           </div>
         </div>`;
     }
